@@ -5,6 +5,8 @@
     num: {{ num }}
     <br>
     X-Vercel-Cache: {{ vercelCacheHeader }}
+    <br />
+    x-vercel-id: {{ vercelIdHeader }}
 </div>
 </template>
 
@@ -14,8 +16,9 @@ export default {
         const url = `${env.baseUrl}/api/${params.xyz}`
         const res = await fetch(url)
         const vercelCacheHeader = res.headers.get("X-Vercel-Cache") || "~none~"
+        const vercelIdHeader = res.headers.get("x-vercel-id") || "~none~"
         const num = await res.text()
-        return { url, num, vercelCacheHeader }
+        return { url, num, vercelCacheHeader, vercelIdHeader }
     }
 }
 </script>
